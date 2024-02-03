@@ -4,9 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -18,12 +17,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -32,24 +29,18 @@ import com.spongycode.basicnewsapp.util.Constants
 import com.spongycode.basicnewsapp.util.Fonts
 import com.spongycode.basicnewsapp.util.TimesAgo
 
-
 @Composable
 fun NewsItem(
+    modifier: Modifier = Modifier,
     title: String = "Title of the news",
     timesAgo: String = "23m ago",
     imageUrl: String = "image.com",
     onClick: () -> Unit = {},
-    bannerId: Int = R.drawable.ic_launcher_background
 ) {
-    val configuration = LocalConfiguration.current
-    val width = (configuration.screenWidthDp - 10)
-    val height = (configuration.screenHeightDp / 5)
     Box(
         contentAlignment = Alignment.BottomEnd,
-        modifier = Modifier
+        modifier = modifier
             .clip(RoundedCornerShape(Constants.VERY_SMALL_HEIGHT))
-            .width(width.dp)
-            .height(height.dp)
             .clickable {
                 onClick()
             },
@@ -75,7 +66,7 @@ fun NewsItem(
 
         Box(
             modifier = Modifier
-                .width(width.dp)
+                .fillMaxWidth()
                 .background(
                     brush = Brush.verticalGradient(
                         colors = listOf(Color.Transparent, Color(0xFF000000)),
