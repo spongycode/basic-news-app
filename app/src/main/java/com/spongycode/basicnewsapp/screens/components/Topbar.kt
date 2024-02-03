@@ -1,4 +1,4 @@
-package com.spongycode.basicnewsapp.components
+package com.spongycode.basicnewsapp.screens.components
 
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api

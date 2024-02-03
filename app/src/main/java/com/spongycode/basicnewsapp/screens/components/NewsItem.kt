@@ -1,6 +1,5 @@
-package com.spongycode.basicnewsapp.components
+package com.spongycode.basicnewsapp.screens.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -20,21 +19,25 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.spongycode.basicnewsapp.R
 import com.spongycode.basicnewsapp.util.Constants
 import com.spongycode.basicnewsapp.util.Fonts
+import com.spongycode.basicnewsapp.util.TimesAgo
 
 
-@Preview
 @Composable
 fun NewsItem(
     title: String = "Title of the news",
     timesAgo: String = "23m ago",
+    imageUrl: String = "image.com",
     onClick: () -> Unit = {},
     bannerId: Int = R.drawable.ic_launcher_background
 ) {
@@ -56,13 +59,17 @@ fun NewsItem(
                 .clip(RoundedCornerShape(Constants.VERY_SMALL_HEIGHT))
         ) {
 
-            Image(
-                painter = painterResource(id = bannerId),
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(imageUrl)
+                    .crossfade(true)
+                    .build(),
+                placeholder = painterResource(R.drawable.ic_launcher_background),
                 contentDescription = null,
+                error = painterResource(id = R.drawable.ic_launcher_foreground),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.Red)
             )
         }
 
@@ -101,7 +108,7 @@ fun NewsItem(
                         shape = RoundedCornerShape(0.dp),
                     )
                     .padding(horizontal = 5.dp),
-                text = timesAgo,
+                text = TimesAgo.getTimeAgo(timesAgo),
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.W500,
                 color = Color.White,
