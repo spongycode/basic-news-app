@@ -28,6 +28,7 @@ import com.spongycode.basicnewsapp.R
 import com.spongycode.basicnewsapp.util.Constants
 import com.spongycode.basicnewsapp.util.Fonts
 import com.spongycode.basicnewsapp.util.TimesAgo
+import com.spongycode.basicnewsapp.util.bounceClick
 
 @Composable
 fun NewsItem(
@@ -40,6 +41,7 @@ fun NewsItem(
     Box(
         contentAlignment = Alignment.BottomEnd,
         modifier = modifier
+            .bounceClick(0.98f)
             .clip(RoundedCornerShape(Constants.VERY_SMALL_HEIGHT))
             .clickable {
                 onClick()
@@ -55,10 +57,10 @@ fun NewsItem(
                     .data(imageUrl)
                     .crossfade(true)
                     .build(),
-                placeholder = painterResource(R.drawable.ic_launcher_background),
+                placeholder = painterResource(R.drawable.news_placeholder_logo),
                 contentDescription = null,
-                error = painterResource(id = R.drawable.ic_launcher_foreground),
-                contentScale = ContentScale.Crop,
+                error = painterResource(id = R.drawable.news_placeholder_logo),
+                contentScale = ContentScale.FillWidth,
                 modifier = Modifier
                     .fillMaxSize()
             )
@@ -95,10 +97,10 @@ fun NewsItem(
             Text(
                 modifier = Modifier
                     .background(
-                        color = Color(0xFF0C336F),
-                        shape = RoundedCornerShape(0.dp),
+                        color = Color(0xFF64B45D),
+                        shape = RoundedCornerShape(bottomStart = Constants.VERY_SMALL_HEIGHT),
                     )
-                    .padding(horizontal = 5.dp),
+                    .padding(horizontal = 10.dp, vertical = 3.dp),
                 text = TimesAgo.getTimeAgo(timesAgo),
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.W500,

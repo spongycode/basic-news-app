@@ -18,6 +18,9 @@ class HomeViewModel @Inject constructor(
     private val newsRepository: NewsRepository
 ) : ViewModel() {
 
+    private val _homeState = mutableStateOf<HomeState>(HomeState.Loading)
+    val homeState: State<HomeState> = _homeState
+
     private val _news = mutableStateListOf<News>()
     val filteredNews: SnapshotStateList<News> = SnapshotStateList()
 
@@ -59,8 +62,10 @@ class HomeViewModel @Inject constructor(
                 newsRepository.getNews()?.let {
                     _news.addAll(it.sortedByDescending { news -> news.timesAgo })
                     filter()
+                    _homeState.value = HomeState.Success
                 }
             } catch (_: Exception) {
+                _homeState.value = HomeState.Error
             }
         }
     }

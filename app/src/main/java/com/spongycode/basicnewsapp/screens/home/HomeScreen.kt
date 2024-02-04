@@ -27,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.spongycode.basicnewsapp.screens.components.NewsItem
 import com.spongycode.basicnewsapp.screens.components.FilterSortDialog
+import com.spongycode.basicnewsapp.screens.components.PlaceholderMessageText
 import com.spongycode.basicnewsapp.screens.components.SearchBar
 import com.spongycode.basicnewsapp.screens.components.SortingFilter
 import com.spongycode.basicnewsapp.screens.components.Topbar
@@ -85,7 +86,13 @@ fun HomeScreen(
                                     MaterialTheme.colorScheme.background
                                 ),
                             text = queryText.value,
-                            onChange = { text -> viewModel.onEvent(HomeEvent.EnteredSearchQuery(text)) }
+                            onChange = { text ->
+                                viewModel.onEvent(
+                                    HomeEvent.EnteredSearchQuery(
+                                        text
+                                    )
+                                )
+                            }
                         )
                         SortingFilter(
                             modifier = Modifier
@@ -115,13 +122,19 @@ fun HomeScreen(
                 )
             }
         }
-
-        if (shouldFilterSortDialog.value) {
-            FilterSortDialog(
-                isAscending = viewModel.isAscending.value,
-                onToggleSort = { viewModel.onEvent(HomeEvent.PressedSortingFilter) },
-                onDismissRequest = { viewModel.toggleVisibilityFilterSortDialog() }
-            )
+        when (viewModel.homeState.value) {
+            HomeState.Error -> PlaceholderMessageText("Oops, some error occurred.")
+            HomeState.Loading -> PlaceholderMessageText("Loading latest news..")
+            HomeState.Success -> {
+                Unit
+            }
         }
+    }
+    if (shouldFilterSortDialog.value) {
+        FilterSortDialog(
+            isAscending = viewModel.isAscending.value,
+            onToggleSort = { viewModel.onEvent(HomeEvent.PressedSortingFilter) },
+            onDismissRequest = { viewModel.toggleVisibilityFilterSortDialog() }
+        )
     }
 }

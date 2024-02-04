@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.spongycode.basicnewsapp.R
+import com.spongycode.basicnewsapp.util.bounceClick
 
 @Composable
 fun SortingFilter(
@@ -17,6 +18,7 @@ fun SortingFilter(
 ) {
     Icon(
         modifier = modifier
+            .bounceClick(0.98f)
             .size(40.dp)
             .clickable { onShowDialog() },
         painter = painterResource(id = if (isAscending) R.drawable.asc_filter else R.drawable.desc_filter),

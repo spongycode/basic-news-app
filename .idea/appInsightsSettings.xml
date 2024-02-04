@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.spongycode.basicnewsapp" />
+                  <option name="mobileSdkAppId" value="1:119193647861:android:3e0f02ba4ea2448302e3bc" />
+                  <option name="projectId" value="basic-news-app" />
+                  <option name="projectNumber" value="119193647861" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
