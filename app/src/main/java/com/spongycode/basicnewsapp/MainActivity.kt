@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     intent.extras?.let {
-                        if (it.get("from") != null && showDataPayloadDialog) {
+                        if (it.get("type") != null && showDataPayloadDialog) {
                             DataPayloadDialog(
                                 bundle = intent.extras!!,
                                 onDismissRequest = { showDataPayloadDialog = false }
